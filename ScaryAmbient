@@ -1,16 +1,29 @@
-local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
-    local Url = GithubSoundPath
+local function getGitSoundId(GithubSoundUrl: string, AssetName: string, Volume: number?, Looped: boolean?, PlayOnLoad: boolean?): Sound
+    local fileName = AssetName..".mp3"
 
-    if not isfile(AssetName..".mp3") then 
-        writefile(AssetName..".mp3", game:HttpGet(Url)) 
+    if not isfile(fileName) then 
+        writefile(fileName, game:HttpGet(GithubSoundUrl)) 
     end
 
-    local Sound = Instance.new("Sound")
-    Sound.SoundId = getcustomasset(AssetName..".mp3", true)
-    return Sound 
+    local sound = Instance.new("Sound")
+    sound.Name = AssetName
+    sound.SoundId = getcustomasset(fileName)
+    sound.Volume = Volume or 1
+    sound.Looped = Looped or false
+    sound.Parent = game:GetService("SoundService")
+
+    if PlayOnLoad then
+        sound:Play()
+    end
+
+    return sound
 end
 
-local CustomMusic = getGitSoundId("https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/Scary.mp3", "Ambient")
-CustomMusic.Parent = game:GetService("SoundService")
-CustomMusic.Looped = true
-CustomMusic:Play()
+
+local CustomMusic = getGitSoundId(
+    "https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/Scary.mp3", -- Link GitHub
+    "Ambient",       
+    2,             
+    true,           
+    true            
+)
