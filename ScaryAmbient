@@ -21,7 +21,7 @@ end
 
 
 local CustomMusic = getGitSoundId(
-    "https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/ScaryAmbientInHardMode.mp3", -- Link GitHub
+    "https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/HardModeAmbient.mp3", -- Link GitHub
     "Ambient",       
     2,             
     true,           
