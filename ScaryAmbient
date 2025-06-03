@@ -19,11 +19,21 @@ local function getGitSoundId(GithubSoundUrl: string, AssetName: string, Volume: 
     return sound
 end
 
-
+-- 
 local CustomMusic = getGitSoundId(
-    "https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/HardModeAmbient.mp3", -- Link GitHub
-    "Ambient",       
-    2,             
-    true,           
-    true            
+    "https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/HardModeAmbient.mp3",
+    "Ambient",
+    1,
+    false,
+    false 
 )
+
+task.spawn(function()
+	while true do
+		local soundClone = CustomMusic:Clone()
+		soundClone.Parent = game:GetService("SoundService")
+		soundClone:Play()
+		game.Debris:AddItem(soundClone, soundClone.TimeLength + 1)
+		task.wait(3)
+	end
+end)
