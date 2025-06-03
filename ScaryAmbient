@@ -34,6 +34,6 @@ task.spawn(function()
 		soundClone.Parent = game:GetService("SoundService")
 		soundClone:Play()
 		game.Debris:AddItem(soundClone, soundClone.TimeLength + 1)
-		task.wait(3)
+		task.wait(14)
 	end
 end)
