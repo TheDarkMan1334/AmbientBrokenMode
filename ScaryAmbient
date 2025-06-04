@@ -1,39 +1,16 @@
-local function getGitSoundId(GithubSoundUrl: string, AssetName: string, Volume: number?, Looped: boolean?, PlayOnLoad: boolean?): Sound
-    local fileName = AssetName..".mp3"
+local function getGitSoundId(GithubSoundPath: string, AssetName: string): Sound
+    local Url = GithubSoundPath
 
-    if not isfile(fileName) then 
-        writefile(fileName, game:HttpGet(GithubSoundUrl)) 
+    if not isfile(AssetName..".mp3") then 
+        writefile(AssetName..".mp3", game:HttpGet(Url)) 
     end
 
-    local sound = Instance.new("Sound")
-    sound.Name = AssetName
-    sound.SoundId = getcustomasset(fileName)
-    sound.Volume = Volume or 1
-    sound.Looped = Looped or false
-    sound.Parent = game:GetService("SoundService")
-
-    if PlayOnLoad then
-        sound:Play()
-    end
-
-    return sound
+    local Sound = Instance.new("Sound")
+    Sound.SoundId = getcustomasset(AssetName..".mp3", true)
+    return Sound 
 end
 
--- 
-local CustomMusic = getGitSoundId(
-    "https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/ScaryAmbientHardModeIndlDoors.mp3",
-    "Ambient",
-    1,
-    false,
-    false 
-)
-
-task.spawn(function()
-	while true do
-		local soundClone = CustomMusic:Clone()
-		soundClone.Parent = game:GetService("SoundService")
-		soundClone:Play()
-		game.Debris:AddItem(soundClone, soundClone.TimeLength + 1)
-		task.wait(12)
-	end
-end)
+local CustomMusic = getGitSoundId("https://github.com/TheDarkMan1334/AmbientBrokenMode/raw/refs/heads/main/ScaryAmbientHardModeIndlDoors.mp3", "HardModeAmbient")
+CustomMusic.Parent = game:GetService("SoundService")
+CustomMusic.Looped = true
+CustomMusic:Play()
